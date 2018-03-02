@@ -30,10 +30,11 @@ int main(int argc, char** argv) {
 		byteCount += currentReadByte;
 		currentReadByte = read(fd, buffer, NAME_MAX);
 	}
-
 	close(fd);
 
-	char* printedString = ("%i %i %i %s \n", lineCount, wordCount, byteCount, argv[1]);
+	char printedString[1024];
+	sprintf(printedString, "%i %i %i %s \n", lineCount, wordCount, byteCount, argv[1]);
+
 	write(1, printedString, strlen(printedString));
 	return 0;
 }
