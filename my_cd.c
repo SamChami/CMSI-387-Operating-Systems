@@ -7,23 +7,24 @@
 #include <dirent.h>
 
 int main(int argc, char** argv) {
+	char* newPath;
 	if (argc == 1) {
 		chdir(getenv("HOME"));
 	} else {
 		char currentPath[PATH_MAX];
-		char* newPath = getcwd(currentPath, PATH_MAX);
+		newPath = getcwd(currentPath, PATH_MAX);
 
 		strcat(newPath, "/");
 		strcat(newPath, argv[1]);
 
 		if (chdir(newPath) == -1) {
-			printf("my_cd: %s: No such file or directory\n", argv[1]);
-		}
+			newPath = getcwd(currentPath, PATH_MAX);
+		} 
 	}
 
-    char cwd[1024];
-    getcwd(cwd, sizeof(cwd));
-    fprintf(stdout, "Current working dir: %s\n", cwd);
+	strcat(newPath, "\n");
+	write(1, newPath, strlen(newPath));
+   
 	return 0;
 }
 
