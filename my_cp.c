@@ -5,7 +5,7 @@
 
 #include <fcntl.h>
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv){
     char buffer[1024];
     int files[2];
     ssize_t count;
@@ -21,10 +21,8 @@ int main(int argc, char **argv) {
         }
         char* file = strrchr(argv[1], '/');
         strcat(fileName, file + 1);
-
-        close(file[1]);
+        close(files[1]);
         files[1] = open(fileName, O_RDWR | O_CREAT, 0666);
-
     }
 
     while ((count = read(files[0], buffer, sizeof(buffer))) != 0) {
