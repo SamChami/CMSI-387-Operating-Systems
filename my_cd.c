@@ -8,20 +8,18 @@
 
 int main(int argc, char** argv) {
 	char* newPath;
+	char currentPath[PATH_MAX];
+	newPath = getcwd(currentPath, PATH_MAX);
+
 	if (argc == 1) {
 		chdir(getenv("HOME"));
 	} else {
-		char currentPath[PATH_MAX];
-		newPath = getcwd(currentPath, PATH_MAX);
-
 		strcat(newPath, "/");
 		strcat(newPath, argv[1]);
-
-		if (chdir(newPath) == -1) {
-			newPath = getcwd(currentPath, PATH_MAX);
-		} 
+		chdir(newPath);
 	}
 
+	newPath = getcwd(currentPath, PATH_MAX);
 	strcat(newPath, "\n");
 	write(1, newPath, strlen(newPath));
    
